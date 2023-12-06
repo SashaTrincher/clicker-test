@@ -133,7 +133,7 @@ function resetToDefaults() {
 
 async function fetchAuthToken() {
     try {
-        const response = await fetch('/getAuthToken'); // Adjust the endpoint
+        const response = await fetch('http://localhost:3000/getAuthToken'); // Adjust the endpoint
         const data = await response.json();
         return data.token;
     } catch (error) {
