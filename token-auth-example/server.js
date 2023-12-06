@@ -1,3 +1,13 @@
+// © 2023 Trincher Oleksandr. All rights reserved.
+
+// For inquiries related to copyright or coding issues, kindly contact Trincher Oleksandr via Discord at 'oleksandrtrincher.
+
+// This website is intended solely for research purposes. All individuals with access to 
+// this website are considered part of a designated team or have provided explicit 
+// agreement to comply with all activities and content on this platform. By accessing and 
+// using this website, users implicitly acknowledge their affiliation with the project or their 
+// consent to participate in and adhere to the terms outlined herein.
+
 const express = require('express');
 const cors = require('cors');
 const uuid = require('uuid');
@@ -5,10 +15,8 @@ const uuid = require('uuid');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Array to store issued tokens
-let issuedTokens = [];
+let issuedTokens = {};
 
-// Middleware to allow CORS
 app.use(cors({ origin: 'http://127.0.0.1:5500' }));
 
 // Set headers for all responses
@@ -20,11 +28,11 @@ app.use((req, res, next) => {
 
 app.get('/getAuthToken', (req, res) => {
     const authToken = uuid.v4();
-    issuedTokens.push(authToken); // Store the issued token
-    res.json({ token: authToken });
+    const deviceInfo = req.headers['user-agent'];
+    issuedTokens[authToken] = deviceInfo;
+    res.json({ token: authToken, device: deviceInfo });
 });
 
-// Endpoint to get all issued tokens
 app.get('/getAllTokens', (req, res) => {
     res.json({ tokens: issuedTokens });
 });

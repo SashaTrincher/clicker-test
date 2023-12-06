@@ -1,4 +1,12 @@
-// All rights reserved by Trincher Oleksandr, 2023. For inquiries regarding copyright or coding issues, please contact me through Discord at 'oleksandrtrincher.
+// © 2023 Trincher Oleksandr. All rights reserved.
+
+// For inquiries related to copyright or coding issues, kindly contact Trincher Oleksandr via Discord at 'oleksandrtrincher.
+
+// This website is intended solely for research purposes. All individuals with access to 
+// this website are considered part of a designated team or have provided explicit 
+// agreement to comply with all activities and content on this platform. By accessing and 
+// using this website, users implicitly acknowledge their affiliation with the project or their 
+// consent to participate in and adhere to the terms outlined herein.
 
 // initial startup
 clickerAmount = JSON.parse(localStorage.getItem('clickAmount')) || 0;
@@ -65,7 +73,6 @@ setInterval(() => {
     console.log('saved');
 }, 10000);
 
-// reset code
 resetButton.addEventListener('click', () => resetToDefaults());
 
 // Function to purchase an upgrade
@@ -94,20 +101,17 @@ function purchaseUpgrade(upgrade, clickDisplay) {
     }
 };
 
-// Function to reset to default values
+// reset code   
 function resetToDefaults() {
     const resetWarning = confirm('Are you sure you want to reset your progress?');
 
     if (resetWarning === true) {
-        // Set default values
         clickerAmount = 0;
         clickerTimes = 1;
 
-        // Update display elements
         output.textContent = `Clicks: ${clickerAmount}`;
         clickDisplay.textContent = `CPC: ${clickerTimes}`;
 
-        // Save defaults to local storage
         localStorage.setItem('clickAmount', JSON.stringify(clickerAmount));
         localStorage.setItem('clickerTimes', JSON.stringify(clickerTimes));
 
@@ -133,7 +137,7 @@ function resetToDefaults() {
 
 async function fetchAuthToken() {
     try {
-        const response = await fetch('http://localhost:3000/getAuthToken'); // Adjust the endpoint
+        const response = await fetch('http://localhost:3000/getAuthToken');
         const data = await response.json();
         return data.token;
     } catch (error) {
@@ -142,7 +146,6 @@ async function fetchAuthToken() {
     }
 }
 
-// Set HTTP-only cookie for authentication token
 function setAuthTokenCookie(token) {
     document.cookie = `authToken=${token}; HttpOnly; SameSite=Strict; Secure`;
 }
